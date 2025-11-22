@@ -21,10 +21,10 @@ export class Country {
   @Column()
   isLandlocked!: boolean;
 
-  @Column("text", { array: true })
+  @Column("simple-array")
   languages!: string[];
 
-  @Column()
+  @Column("text",{nullable: true})
   currency!: string | null;
 
   @Column("decimal", { precision: 10, scale: 6 })
