@@ -2,13 +2,11 @@ import { verify } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 
+import { TokenPayload } from "../interfaces/tokenIntefaces";
+
 dotenv.config();
 
-export interface TokenPayload {
-  id: number;
-  email: string;
-  role: "admin" | "user" | "moderator";
-}
+
 
 
 export const authMiddleware = (
