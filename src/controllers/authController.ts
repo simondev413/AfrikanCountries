@@ -5,6 +5,11 @@ import bcrypt from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { isBcryptHash } from "../utils/helpers";
 
+import dotenv from "dotenv"
+
+dotenv.config()
+
+
 const usersRepository = AppDataSource.getRepository(User);
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -18,7 +23,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     }
 
     if (!isBcryptHash(user.password)) {
-      const hashedPassword = await bcrypt.hash(user.password, 10);
+      const hashedPassword = await bcrypt.hash(user.password, 17);
       user.password = hashedPassword;
       await usersRepository.save(user);
     }
@@ -36,7 +41,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         role: user.role, // 👈 Manda a role aqui
       },
       process.env.JWT_SECRET as string,
-      { expiresIn: "1h" }
+      { expiresIn: "1D"}
     );
 
     user.lastLogin = new Date();
@@ -52,4 +57,4 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
       message: `Internal server error: ${err}`,
     });
   }
-};
+}
