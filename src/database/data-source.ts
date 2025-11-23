@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
     logging: true,
     entities: [User, Country,AuditLog],
     driver: require('mysql2'),
-    synchronize: true,
-    dropSchema: true, 
+    synchronize: false,
+    dropSchema: false, 
 
 })
